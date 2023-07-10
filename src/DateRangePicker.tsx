@@ -7,10 +7,10 @@ import {
   TextStyle,
   Pressable,
 } from "react-native";
-import moment from "moment";
+import moment from "dayjs";
 import Month from "./Month";
 import Button from "./Button";
-require("moment/min/locales.min");
+require("dajys/min/locales.min");
 
 interface IResponse {
   firstDate: string | moment.Moment;

@@ -51,7 +51,7 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "moment": "^2.29.1"
+    "dayjs": "^1.11.9"
   },
   "files": [
     "/lib"
