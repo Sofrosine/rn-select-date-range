@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import DateRangePicker from 'rn-select-date-range';
@@ -14,8 +14,8 @@ const App = () => {
           }}
           blockSingleDateSelection={false}
           responseFormat="YYYY-MM-DD"
-          maxDate={moment()}
-          minDate={moment().subtract(100, 'days')}
+          maxDate={dayjs()}
+          minDate={dayjs().subtract(100, 'days')}
           selectedDateContainerStyle={styles.selectedDateContainerStyle}
           selectedDateStyle={styles.selectedDateStyle}
         />

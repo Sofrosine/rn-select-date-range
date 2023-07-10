@@ -7,18 +7,18 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import moment from "moment";
+import moment from "dayjs";
 
 interface IProps {
-  maxDate?: moment.Moment;
-  minDate?: moment.Moment;
+  maxDate?: moment.Dayjs;
+  minDate?: moment.Dayjs;
   selectedDateContainerStyle?: ViewStyle;
   selectedDateStyle?: TextStyle;
   font?: string;
-  selectedDate: moment.Moment;
-  onSelectDate: (date: moment.Moment) => void;
-  firstDate: moment.Moment | null;
-  secondDate: moment.Moment | null;
+  selectedDate: moment.Dayjs;
+  onSelectDate: (date: moment.Dayjs) => void;
+  firstDate: moment.Dayjs | null;
+  secondDate: moment.Dayjs | null;
 }
 
 export default ({

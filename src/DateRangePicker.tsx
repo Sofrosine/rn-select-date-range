@@ -10,25 +10,24 @@ import {
 import moment from "dayjs";
 import Month from "./Month";
 import Button from "./Button";
-require("dajys/min/locales.min");
 
 interface IResponse {
-  firstDate: string | moment.Moment;
-  secondDate: string | moment.Moment;
+  firstDate: string | moment.Dayjs;
+  secondDate: string | moment.Dayjs;
 }
 
 interface IProps {
   onSelectDateRange: (response: IResponse) => void;
   responseFormat?: string;
-  maxDate?: moment.Moment;
-  minDate?: moment.Moment;
+  maxDate?: moment.Dayjs;
+  minDate?: moment.Dayjs;
   blockSingleDateSelection?: boolean;
   font?: string;
   selectedDateContainerStyle?: ViewStyle;
   selectedDateStyle?: TextStyle;
   ln?: string;
   onConfirm?: () => void;
-  onClear?:() => void;
+  onClear?: () => void;
   clearBtnTitle?: string;
   confirmBtnTitle?: string;
 }
@@ -46,12 +45,12 @@ const DateRangePicker = ({
   onConfirm,
   onClear,
   clearBtnTitle = "Clear",
-  confirmBtnTitle = "OK"
+  confirmBtnTitle = "OK",
 }: IProps) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
-  const [firstDate, setFirstDate] = useState<moment.Moment | null>(null);
-  const [secondDate, setSecondDate] = useState<moment.Moment | null>(null);
+  const [firstDate, setFirstDate] = useState<moment.Dayjs | null>(null);
+  const [secondDate, setSecondDate] = useState<moment.Dayjs | null>(null);
 
   const lastMonth = selectedDate.clone().subtract(1, "months");
   const lastYear = selectedDate.clone().subtract(1, "years");
@@ -60,7 +59,7 @@ const DateRangePicker = ({
 
   moment.locale(ln);
 
-  const returnSelectedRange = (fd: moment.Moment, ld: moment.Moment) => {
+  const returnSelectedRange = (fd: moment.Dayjs, ld: moment.Moment) => {
     const isWrongSide = ld?.isBefore(fd);
 
     if (responseFormat) {
@@ -80,7 +79,7 @@ const DateRangePicker = ({
     }
   };
 
-  const onSelectDate = (date: moment.Moment) => {
+  const onSelectDate = (date: moment.Dayjs) => {
     if (
       blockSingleDateSelection &&
       (firstDate?.isSame(date, "dates") || secondDate?.isSame(date, "dates"))
@@ -118,7 +117,7 @@ const DateRangePicker = ({
     if (onConfirm) {
       onConfirm();
     }
-  }
+  };
 
   const isDateSelected = () => firstDate === null || secondDate === null;
 
@@ -173,23 +172,27 @@ const DateRangePicker = ({
         selectedDateStyle={selectedDateStyle}
       />
       <View style={styles.actionButtonsContainer}>
-        {confirmBtnTitle ? <View>
-          <Pressable
-            onPress={onPressConfirm}
-            style={[styles.actionBtn]}
-          >
-            <Text style={{ fontFamily: font }}>{confirmBtnTitle}</Text>
-          </Pressable>
-        </View> : null}
-        {clearBtnTitle ? <View>
-          <Pressable
-            disabled={isDateSelected()}
-            onPress={onPressClear}
-            style={[styles.actionBtn, { opacity: isDateSelected() ? 0.3 : 1 }]}
-          >
-            <Text style={{ fontFamily: font }}>{clearBtnTitle}</Text>
-          </Pressable>
-        </View> : null}
+        {confirmBtnTitle ? (
+          <View>
+            <Pressable onPress={onPressConfirm} style={[styles.actionBtn]}>
+              <Text style={{ fontFamily: font }}>{confirmBtnTitle}</Text>
+            </Pressable>
+          </View>
+        ) : null}
+        {clearBtnTitle ? (
+          <View>
+            <Pressable
+              disabled={isDateSelected()}
+              onPress={onPressClear}
+              style={[
+                styles.actionBtn,
+                { opacity: isDateSelected() ? 0.3 : 1 },
+              ]}
+            >
+              <Text style={{ fontFamily: font }}>{clearBtnTitle}</Text>
+            </Pressable>
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -220,5 +223,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 5,
-  }
+  },
 });
